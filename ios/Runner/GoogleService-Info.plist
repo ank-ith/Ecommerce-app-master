@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyC97seLKrMkHwwgWP8ilN6xuUscAHbW3Q4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>413257106131</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.ecommerceProject</string>
+	<key>PROJECT_ID</key>
+	<string>fir-2d178</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fir-2d178.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:413257106131:ios:1172bb2870217f15784a26</string>
+	<key>DATABASE_URL</key>
+	<string>https://fir-2d178-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+</dict>
+</plist>
