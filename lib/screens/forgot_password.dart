@@ -1,4 +1,3 @@
-import 'package:ecommerce_project/screens/sign_in.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPassword extends StatefulWidget {
@@ -9,7 +8,7 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _SignUpState extends State<ForgetPassword> {
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class _SignUpState extends State<ForgetPassword> {
         elevation: 0.0,
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
           ),
@@ -28,23 +27,23 @@ class _SignUpState extends State<ForgetPassword> {
       body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.fromLTRB(20, 110, 20, 110),
+              padding: const EdgeInsets.fromLTRB(20, 110, 20, 110),
               child: Column(mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                Text(
+                const Text(
                 'Forget Password?',
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, fontFamily: 'SFUIDisplay'),
               ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   TextFields(
-                    icon: Icon(Icons.email_outlined),
+                    icon: const Icon(Icons.email_outlined),
                     label: 'EMAIL',
                     controller: _emailController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Align(
@@ -53,11 +52,11 @@ class _SignUpState extends State<ForgetPassword> {
                       height: 50,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.green,
+                              backgroundColor: Colors.green,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0))),
                           onPressed: () {},
-                          child: Row(
+                          child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text('RESET',style: TextStyle(fontFamily: 'SFUIDisplay')),
@@ -80,19 +79,23 @@ class _SignUpState extends State<ForgetPassword> {
         height: 60,
         child: Row(mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'already have an account',
               style: TextStyle(
                   fontFamily: "SFUIDisplay", color: Colors.black, fontSize: 15),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             TextButton(
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SignIn(),
-                )),
-                child: Text(
+                onPressed: () =>() {
+
+                }
+
+                // } Navigator.of(context).push(MaterialPageRoute(
+                //   builder: (context) => SignIn(),
+                // )),
+               , child: const Text(
                   'Sign In',
                   style: TextStyle(
                       fontFamily: 'SFUIDisplay',
@@ -109,10 +112,10 @@ class _SignUpState extends State<ForgetPassword> {
 class TextFields extends StatelessWidget {
   final Icon icon;
   final String label;
-  TextEditingController controller;
-  bool secureText;
+  final TextEditingController controller;
+  final bool secureText;
 
-  TextFields(
+  const TextFields(
       {super.key,
         required this.icon,
         required this.label,
@@ -125,12 +128,12 @@ class TextFields extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         obscureText: secureText,
-        style: TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
+        style: const TextStyle(color: Colors.black, fontFamily: 'SFUIDisplay'),
         decoration: InputDecoration(
             border: InputBorder.none,
             labelText: label,
             prefixIcon: icon,
-            labelStyle: TextStyle(fontSize: 12)),
+            labelStyle: const TextStyle(fontSize: 12)),
       ),
     );
   }

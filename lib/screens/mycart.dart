@@ -1,3 +1,4 @@
+import 'package:ecommerce_project/screens/homepage.dart';
 import 'package:ecommerce_project/screens/provider/cart_provider.dart';
 import 'package:ecommerce_project/screens/order_placed_splash.dart';
 import 'package:flutter/material.dart';
@@ -13,82 +14,149 @@ class MyCart extends StatelessWidget {
     final List<CartItem> cartItems =
         Provider.of<CartProvider>(context).cartItems;
 
-    return CustomScaffold(
-      showAppBar: false,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'CART',
-                style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'SFUIDisplay'),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: cartItems.length,
-                  itemBuilder: (context, index) {
-                    return CartItemWidget(
-                        cartItem: cartItems[index],
-                        onUpdate: () {
-                          Provider.of<CartProvider>(context, listen: false)
-                              .notifyListeners();
-                        });
-                  },
-                ),
-              ),
-              Divider(),
-              Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Row(
+    return cartItems.isNotEmpty
+        ? CustomScaffold(
+            showAppBar: false,
+            body: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      'CART',
+                      style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'SFUIDisplay'),
+                    ),
                     Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                        ),
-                        onPressed: () {
-                          showCheckoutDialog(context);
+                      child: ListView.builder(
+                        itemCount: cartItems.length,
+                        itemBuilder: (context, index) {
+                          return CartItemWidget(
+                              cartItem: cartItems[index],
+                              onUpdate: () {
+                                Provider.of<CartProvider>(context,
+                                        listen: false)
+                                    .notifyListeners();
+                              });
                         },
-                        child: Text('Proceed to Checkout',
-                            style: TextStyle(fontFamily: 'SFUIDisplay')),
+                      ),
+                    ),
+                    Divider(),
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                              ),
+                              onPressed: () {
+                                showCheckoutDialog(context);
+                              },
+                              child: Text('Proceed to Checkout',
+                                  style: TextStyle(fontFamily: 'SFUIDisplay')),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(),
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'TOTAL: ',
+                            style: TextStyle(
+                                fontSize: 18.0, fontFamily: 'SFUIDisplay'),
+                          ),
+                          Text(
+                            '\$${calculateTotal(cartItems).toStringAsFixed(2)}',
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'SFUIDisplay'),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-              Divider(),
-              Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            showBottomNavBar: true,
+            initialIndex: 3,
+          )
+        : CustomScaffold(
+            showAppBar: false,
+            body: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'TOTAL: ',
-                      style:
-                          TextStyle(fontSize: 18.0, fontFamily: 'SFUIDisplay'),
-                    ),
-                    Text(
-                      '\$${calculateTotal(cartItems).toStringAsFixed(2)}',
+                      'CART',
                       style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 26,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'SFUIDisplay'),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 100,
+                            ),
+                            Image(
+                              image: AssetImage('assets/images/cartempty.png'),
+                              height: 250,
+                              width: 250,
+                            ),
+                            Text('''Seems like your cart is empty
+add any product to checkout''',
+                                style: TextStyle(
+                                    fontSize: 18, fontFamily: 'SFUIDisplay')),
+                        SizedBox(height: 10,),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 60),
+                              child: MaterialButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                color: Colors.green[600],
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen(),));
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.arrow_back),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text('go to homepage',
+                                        style:
+                                            TextStyle(fontFamily: 'SFUIDisplay'))
+                                  ],
+                                ),
+                              ),
+                            )
+                          ]),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-      showBottomNavBar: true,
-      initialIndex: 3,
-    );
+            ),
+            showBottomNavBar: true,
+            initialIndex: 3,
+          );
   }
 
   void showCheckoutDialog(BuildContext context) {
@@ -212,7 +280,9 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 ),
                 IconButton(
                   alignment: Alignment.centerRight,
-                  onPressed: () {},
+                  onPressed: () {
+                    removeItemFromCart();
+                  },
                   icon: Icon(Icons.delete_forever),
                   iconSize: 30,
                 )
@@ -240,5 +310,11 @@ class _CartItemWidgetState extends State<CartItemWidget> {
         widget.onUpdate();
       });
     }
+  }
+
+  void removeItemFromCart() {
+    Provider.of<CartProvider>(context, listen: false)
+        .removefrmCart(widget.cartItem);
+    widget.onUpdate();
   }
 }

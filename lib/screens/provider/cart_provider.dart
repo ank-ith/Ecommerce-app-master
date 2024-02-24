@@ -13,4 +13,11 @@ class CartProvider with ChangeNotifier{
     cartItems.add(item);
     notifyListeners();
   }
+  void removefrmCart(CartItem item){
+    cartItems.remove(item);
+    notifyListeners();
+  }
+  void logout(){
+    cartItems.clear();
+  }
 }

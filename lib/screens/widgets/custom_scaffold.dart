@@ -1,13 +1,14 @@
+import 'package:ecommerce_project/screens/my_account.dart';
 import 'package:ecommerce_project/screens/sign_in.dart';
 import 'package:ecommerce_project/screens/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomScaffold extends StatefulWidget {
   final Widget body;
   final bool showBottomNavBar;
   final bool showAppBar;
   final int initialIndex;
-
 
   CustomScaffold(
       {super.key,
@@ -22,25 +23,44 @@ class CustomScaffold extends StatefulWidget {
 
 class _CustomScaffoldState extends State<CustomScaffold> {
   @override
+  void initState() {
+    loggedValue();
+    super.initState();
+  }
+
+  late bool loggedin;
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: widget.showAppBar
-          ? AppBar(toolbarHeight: 90,actions: <Widget>[
-            IconButton(onPressed: (){
-              //add function
-
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn(),
-              ));
-            }, icon: CircleAvatar(
-              radius: 20,
-              backgroundColor: Colors.grey,
-              child: Icon(
-                Icons.person,
-                color: Colors.white,
-                size:20,
-              ),
-            ))
-      ],
+          ? AppBar(
+              toolbarHeight: 90,
+              actions: <Widget>[
+                IconButton(
+                    onPressed: () {
+                      //add function
+                      loggedin
+                          ? Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MyAccount(),
+                              ))
+                          : Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignIn()));
+                    },
+                    icon: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.grey,
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ))
+              ],
               elevation: 10.0,
               backgroundColor: Colors.green[700],
               title: Container(
@@ -53,7 +73,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                   color: Colors.white,
                   child: Row(
                     children: [
-                       Expanded(
+                      Expanded(
                           child: TextField(
                         decoration: InputDecoration(
                             hintText: "search any products",
@@ -73,9 +93,14 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             )
           : null,
       body: widget.body,
-      bottomNavigationBar:
-          widget.showBottomNavBar ? BottomNavBar(initialIndex: widget.initialIndex) : null,
+      bottomNavigationBar: widget.showBottomNavBar
+          ? BottomNavBar(initialIndex: widget.initialIndex)
+          : null,
     );
   }
-}
 
+  Future<void> loggedValue() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    loggedin = prefs.getBool('isloggedin') ?? false;
+  }
+}

@@ -3,6 +3,7 @@ import 'package:ecommerce_project/screens/forgot_password.dart';
 import 'package:ecommerce_project/screens/homepage.dart';
 import 'package:ecommerce_project/screens/sign_up.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -117,6 +118,9 @@ class _SignInState extends State<SignIn> {
                             .loginUser(email: email, pwd: pwd)
                             .then((value) {
                           if (value == null) {
+                            setState(() {
+                              prefNameEmail();
+                            });
                             Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
                                     builder: (context) => HomeScreen()));
@@ -173,5 +177,11 @@ class _SignInState extends State<SignIn> {
         ),
       ),
     );
+  }
+
+  void prefNameEmail() async{
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    prefs.setString('email', _emailAddressController.text.trim());
+    prefs.setBool('isloggedin', true);
   }
 }

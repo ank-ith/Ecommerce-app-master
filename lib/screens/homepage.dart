@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_project/screens/product_details.dart';
+import 'package:ecommerce_project/screens/provider/fav_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/custom_scaffold.dart';
 
@@ -12,7 +14,98 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<CardItem> products = [];
+  List<CardItem> products = [
+    CardItem(
+        title: 'shirt 1',
+        images: [
+          'assets/images/shirt1-1.jpeg',
+          'assets/images/shirt1-2.jpeg',
+          'assets/images/shirt1-3.jpeg',
+          'assets/images/shirt1-4.jpeg',
+        ],
+        pricing: '10'),
+    CardItem(
+        title: 'shirt 2',
+        images: [
+          'assets/images/shirt2-1.jpeg',
+          'assets/images/shirt2-2.jpeg',
+          'assets/images/shirt2-3.jpeg',
+          'assets/images/shirt2-4.jpeg',
+        ],
+        pricing: '50'),
+    CardItem(
+        title: 'shirt 3',
+        images: [
+          'assets/images/1.jpeg',
+          'assets/images/2.jpeg',
+          'assets/images/3.jpeg',
+          'assets/images/4.jpeg',
+        ],
+        pricing: '30'),
+    CardItem(
+        title: 'jean 1',
+        images: [
+          'assets/images/jean1.jpg',
+          'assets/images/shirt1.jpg',
+          'assets/images/shirt2.jpg',
+          'assets/images/shirt3.jpg'
+        ],
+        pricing: '60'),
+    CardItem(
+        title: 'jean 2',
+        images: [
+          'assets/images/jean2.jpg',
+          'assets/images/shirt1.jpg',
+          'assets/images/shirt2.jpg',
+          'assets/images/shirt3.jpg'
+        ],
+        pricing: '30'),
+    CardItem(
+        title: 'jean 3',
+        images: [
+          'assets/images/jean3.jpg',
+          'assets/images/shirt1.jpg',
+          'assets/images/shirt2.jpg',
+          'assets/images/shirt3.jpg'
+        ],
+        pricing: '30'),
+    CardItem(
+        title: 'jean 4',
+        images: [
+          'assets/images/jean4.jpg',
+          'assets/images/shirt1.jpg',
+          'assets/images/shirt2.jpg',
+          'assets/images/shirt3.jpg'
+        ],
+        pricing: '30'),
+    CardItem(
+        title: 'tshirt 1',
+        images: [
+          'assets/images/shirt4.jpg',
+          'assets/images/shirt1.jpg',
+          'assets/images/shirt2.jpg',
+          'assets/images/shirt3.jpg'
+        ],
+        pricing: '30'),
+    CardItem(
+        title: 'shirt 4',
+        images: [
+          'assets/images/shirt5.jpg',
+          'assets/images/shirt1.jpg',
+          'assets/images/shirt2.jpg',
+          'assets/images/shirt3.jpg'
+        ],
+        pricing: '30'),
+    CardItem(
+        title: 'tshirt 2',
+        images: [
+          'assets/images/shirt6.jpg',
+          'assets/images/shirt1.jpg',
+          'assets/images/shirt2.jpg',
+          'assets/images/shirt3.jpg'
+        ],
+        pricing: '30'),
+  ];
   List<String> banner = [
     'assets/images/banner/banner1.jpg',
     'assets/images/banner/banner2.jpg',
@@ -24,98 +117,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     // getSearchText();
-    products = [
-      CardItem(
-          title: 'shirt 1',
-          images: [
-            'assets/images/shirt1.jpg',
-            'assets/images/shirt2.jpg',
-            'assets/images/shirt3.jpg',
-            'assets/images/shirt1.jpg'
-          ],
-          pricing: '10'),
-      CardItem(
-          title: 'shirt 2',
-          images: [
-            'assets/images/shirt2.jpg',
-            'assets/images/shirt1.jpg',
-            'assets/images/shirt2.jpg',
-            'assets/images/shirt3.jpg'
-          ],
-          pricing: '50'),
-      CardItem(
-          title: 'shirt 3',
-          images: [
-            'assets/images/shirt3.jpg',
-            'assets/images/shirt1.jpg',
-            'assets/images/shirt2.jpg',
-            'assets/images/shirt3.jpg'
-          ],
-          pricing: '30'),
-      CardItem(
-          title: 'jean 1',
-          images: [
-            'assets/images/jean1.jpg',
-            'assets/images/shirt1.jpg',
-            'assets/images/shirt2.jpg',
-            'assets/images/shirt3.jpg'
-          ],
-          pricing: '60'),
-      CardItem(
-          title: 'jean 2',
-          images: [
-            'assets/images/jean2.jpg',
-            'assets/images/shirt1.jpg',
-            'assets/images/shirt2.jpg',
-            'assets/images/shirt3.jpg'
-          ],
-          pricing: '30'),
-      CardItem(
-          title: 'jean 3',
-          images: [
-            'assets/images/jean3.jpg',
-            'assets/images/shirt1.jpg',
-            'assets/images/shirt2.jpg',
-            'assets/images/shirt3.jpg'
-          ],
-          pricing: '30'),
-      CardItem(
-          title: 'jean 4',
-          images: [
-            'assets/images/jean4.jpg',
-            'assets/images/shirt1.jpg',
-            'assets/images/shirt2.jpg',
-            'assets/images/shirt3.jpg'
-          ],
-          pricing: '30'),
-      CardItem(
-          title: 'tshirt 1',
-          images: [
-            'assets/images/shirt4.jpg',
-            'assets/images/shirt1.jpg',
-            'assets/images/shirt2.jpg',
-            'assets/images/shirt3.jpg'
-          ],
-          pricing: '30'),
-      CardItem(
-          title: 'shirt 4',
-          images: [
-            'assets/images/shirt5.jpg',
-            'assets/images/shirt1.jpg',
-            'assets/images/shirt2.jpg',
-            'assets/images/shirt3.jpg'
-          ],
-          pricing: '30'),
-      CardItem(
-          title: 'tshirt 2',
-          images: [
-            'assets/images/shirt6.jpg',
-            'assets/images/shirt1.jpg',
-            'assets/images/shirt2.jpg',
-            'assets/images/shirt3.jpg'
-          ],
-          pricing: '30'),
-    ];
     super.initState();
   }
 
@@ -145,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         );
                       }).toList(),
-                      options: CarouselOptions(
+                      options: CarouselOptions(autoPlayCurve: Curves.linear,
                         viewportFraction: 1,
                         autoPlayAnimationDuration: Duration(seconds: 2),
                         autoPlay: true,
@@ -157,19 +158,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           });
                         },
                       ))
-                  // PageView.builder(
-                  //     itemCount: banner.length,
-                  //     onPageChanged: (int index) {
-                  //       setState(() {
-                  //
-                  //       });
-                  //     },
-                  //     itemBuilder: (context, index) {
-                  //       return Image.asset(
-                  //         banner[index],
-                  //         fit: BoxFit.cover,
-                  //       );
-                  //     }),
                   ),
             ),
             GridView.count(
@@ -213,10 +201,11 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: Card(
         elevation: 10,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -229,8 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   },
                   itemBuilder: (context, index) {
-                    return Image.asset(
-                      cardItem.images[index],
+                    return Image(image:AssetImage(cardItem.images[index]),height: 80,width: 80,
                       fit: BoxFit.scaleDown,
                     );
                   }),
@@ -240,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: List<Widget>.generate(cardItem.images.length,
                   (int circleIndex) {
                 return Padding(
-                  padding: EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: CircleAvatar(
                     radius: 4,
                     backgroundColor: circleIndex == cardItem.currentIndex
@@ -259,29 +247,44 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontFamily: 'SFUIDisplay'),
               ),
               subtitle: Text('\$${cardItem.pricing}',
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black, fontFamily: 'SFUIDisplay')),
               trailing: IconButton(
                   onPressed: () {
+                    final favprovider =
+                        Provider.of<FavProvider>(context, listen: false);
+                    if (cardItem.isfav == false) {
+                      favprovider.addToFav(FavItem(
+                          name: cardItem.title,
+                          price: cardItem.pricing,
+                          image: cardItem.images[0]));
+                    } else {
+                      favprovider.removeFav(FavItem(
+                          name: cardItem.title,
+                          price: cardItem.pricing,
+                          image: cardItem.images[0]));
+                    }
                     setState(() {
                       cardItem.isfav = !cardItem.isfav;
                     });
                   },
-                  icon:cardItem.isfav
-                          ? const Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                            )
-                          : Icon(
-                              Icons.favorite_border,
-                              color: Colors.grey,
-                            )),
+                  icon: cardItem.isfav
+                      ? const Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        )
+                      : const Icon(
+                          Icons.favorite_border,
+                          color: Colors.grey,
+                        )),
             )
           ],
         ),
       ),
     );
   }
+
+
 
 }
 

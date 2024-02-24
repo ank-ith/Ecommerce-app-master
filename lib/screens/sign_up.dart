@@ -163,7 +163,6 @@ class _SignUpState extends State<SignUp> {
 
   void prefEmailPwd() async{
     SharedPreferences prefs=await SharedPreferences.getInstance();
-    prefs.setString('name', _nameController.text);
     prefs.setString('email', _emailController.text);
     prefs.setBool('isloggedin', true);
   }

@@ -1,6 +1,7 @@
 import 'package:ecommerce_project/firebase_options.dart';
 import 'package:ecommerce_project/screens/provider/cart_provider.dart';
 import 'package:ecommerce_project/screens/homepage.dart';
+import 'package:ecommerce_project/screens/provider/fav_provider.dart';
 import 'package:ecommerce_project/screens/sign_in.dart';
 import 'package:ecommerce_project/screens/sign_up.dart';
 import 'package:ecommerce_project/screens/splash_screen.dart';
@@ -14,9 +15,11 @@ import 'screens/forgot_password.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(ChangeNotifierProvider(
-    create: (context) => CartProvider(),
-    child: MyApp(),
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => CartProvider()),
+    ChangeNotifierProvider(create: (context)=> FavProvider()),
+      ]
+    ,child: MyApp(),
   ));
 }
 

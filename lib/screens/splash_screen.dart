@@ -22,14 +22,14 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     getVistedvalue();
     _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 2));
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
     super.initState();
     _animationController.forward();
-    Timer(Duration(seconds: 3), () async{
-     await visited_data?
-     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>HomeScreen() ,))
+    Timer(const Duration(seconds: 3), () async{
+     visited_data?
+     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>const HomeScreen() ,))
          :
-     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>WelcomeScreen() ,));
+     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>const WelcomeScreen() ,));
     });
   }
 
@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen>
               scale: Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
                   parent: _animationController, curve: Curves.easeInOut)),
               child: Image.asset(
-                'assets/images/download.png',
+                'assets/images/cart.png',
                 height: 150,
               ),
             ),
@@ -55,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen>
             ScaleTransition(
               scale: Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
                   parent: _animationController, curve: Curves.easeInOut)),
-              child: Text(
+              child: const Text(
                 'E-COMMERCE APP',
                 style: TextStyle(
                     fontSize: 26,
@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen>
           ],
         ),
       ),
-      bottomNavigationBar: SizedBox(
+      bottomNavigationBar: const SizedBox(
         height: 40,
         child: Text(
           'v4.3.2',
@@ -79,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<bool> getVistedvalue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    visited_data = prefs.getBool('visited')??true;
+    visited_data = prefs.getBool('visited')??false;
     return visited_data;
   }
 }

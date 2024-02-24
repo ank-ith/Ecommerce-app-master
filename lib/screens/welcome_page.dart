@@ -1,8 +1,6 @@
+import 'package:ecommerce_project/screens/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'homepage.dart';
-import 'login_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -16,20 +14,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   List<WelcomeSlider> welcomeSlider = [
     WelcomeSlider(
         title: 'Shop all you want',
-        image: "assets/images/onboardingimg.jpg",
+        image: "assets/images/onboardingimg.png",
         description: 'Select from a wide range of products'),
     WelcomeSlider(
         title: 'Save Time And Effort',
-        image: "assets/images/download.png",
+        image: "assets/images/onboardingimg1.jpg",
         description: 'Shop at your convience'),
     WelcomeSlider(
         title: 'Have a great shopping experience',
-        image: "assets/images/V+shopping cart.jpeg",
+        image: "assets/images/onboardingimg2.jpg",
         description: '_________')
   ];
   final _pageController = PageController();
   int _currentpage = 0;
-  bool visited=false;
+  //bool visited=false;
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +37,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         backgroundColor: Colors.green,
         body: SafeArea(
             child: Padding(
-          padding: EdgeInsets.all(14),
+          padding: const EdgeInsets.all(14),
           child: Column(
             children: [
               Align(
                   alignment: Alignment.topRight,
                   child: TextButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => LoginScreen()));
+                        isVisited();
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => const SignIn()));
                       },
-                      child: Text(
+                      child: const Text(
                         'Skip',
                         style: TextStyle(color: Colors.red, fontSize: 16, fontFamily: 'SFUIDisplay'),
                       ))),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               Expanded(
@@ -73,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             item.image,
                             height: 350,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           //???
@@ -86,13 +85,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold, fontFamily: 'SFUIDisplay'),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
                             item.description,
-                            style: TextStyle(
-                                color: Colors.deepOrangeAccent, fontSize: 20, fontFamily: 'SFUIDisplay'),
+                            style: const TextStyle(
+                                color: Colors.deepOrange, fontSize: 20, fontFamily: 'SFUIDisplay'),
                           ),
                         ],
                       );
@@ -118,23 +117,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
         )),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.deepOrange,
           onPressed: () {
             if (_currentpage < welcomeSlider.length-1) {
               _pageController.nextPage(
-                  duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+                  duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
             }
             else {
               //navigator to home screen
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => LoginScreen()));
+                  .pushReplacement(MaterialPageRoute(builder: (context) => const SignIn()));
               //gotoHome();
               isVisited();
             }
           },
           child: _currentpage != welcomeSlider.length-1
-              ? Icon(Icons.arrow_forward)
-              : Icon(Icons.done),
+              ? const Icon(Icons.arrow_forward)
+              : const Icon(Icons.done),
         ),
       ),
     );
