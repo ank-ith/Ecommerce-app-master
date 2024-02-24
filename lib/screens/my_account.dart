@@ -23,13 +23,13 @@ class _MyAccountState extends State<MyAccount> {
   }
 
   late String name;
-  late String email;
+  late String email='';
   late bool isLoggedIn = false;
 
   Future<void> getNameEmail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      email = prefs.getString('email') ?? 'No Email';
+      email = prefs.getString('email')!;
       isLoggedIn = prefs.getBool('isloggedin') ?? false;
     });
   }

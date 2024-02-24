@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late String searchKey;
   List<CardItem> products = [
     CardItem(
         title: 'shirt 1',
@@ -118,11 +119,16 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // getSearchText();
     super.initState();
+    searchKey = '';
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
+    return CustomScaffold(onSearchTextChanged: (String text) {
+      setState(() {
+        searchKey = text;
+      });
+    },
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -166,18 +172,18 @@ class _HomeScreenState extends State<HomeScreen> {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               children:
-                  // products
-                  //     .where(
-                  //   (element) => element.title
-                  //       .toLowerCase()
-                  //       .contains(search_text.toLowerCase()),
-                  // )
-                  //     .map((carditem) {
-                  //   return buildCard(carditem);
-                  // }).toList()
-                  products.map((cardItem) {
-                return buildCard(cardItem);
-              }).toList(),
+                  products
+                      .where(
+                    (element) => element.title
+                        .toLowerCase()
+                        .contains(searchKey.toLowerCase()),
+                  )
+                      .map((carditem) {
+                    return buildCard(carditem);
+                  }).toList()
+              //     products.map((cardItem) {
+              //   return buildCard(cardItem);
+              // }).toList(),
             ),
           ],
         ),

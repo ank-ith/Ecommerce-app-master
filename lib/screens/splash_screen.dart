@@ -16,7 +16,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  late bool visited_data;
+  late bool visited_data=false;
 
   @override
   void initState() {
@@ -79,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<bool> getVistedvalue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    visited_data = prefs.getBool('visited')??false;
+    visited_data = prefs.getBool('visited')!;
     return visited_data;
   }
 }

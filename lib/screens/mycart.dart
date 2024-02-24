@@ -135,7 +135,7 @@ add any product to checkout''',
                                 onPressed: () {
                                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen(),));
                                 },
-                                child: Row(
+                                child: Row(mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(Icons.arrow_back),
                                     SizedBox(
