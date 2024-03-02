@@ -1,9 +1,10 @@
+
 import 'package:ecommerce_project/screens/homepage.dart';
 import 'package:ecommerce_project/screens/provider/cart_provider.dart';
-import 'package:ecommerce_project/screens/order_placed_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'checkout.dart';
 import 'widgets/custom_scaffold.dart';
 
 class MyCart extends StatelessWidget {
@@ -55,7 +56,8 @@ class MyCart extends StatelessWidget {
                                 backgroundColor: Colors.green,
                               ),
                               onPressed: () {
-                                showCheckoutDialog(context);
+                                double total=calculateTotal(cartItems);
+                                showCheckoutDialog(context,total);
                               },
                               child: Text('Proceed to Checkout',
                                   style: TextStyle(fontFamily: 'SFUIDisplay')),
@@ -159,7 +161,9 @@ add any product to checkout''',
           );
   }
 
-  void showCheckoutDialog(BuildContext context) {
+
+  void showCheckoutDialog(BuildContext context,double total) {
+
     showDialog(
       context: context,
       builder: (context) {
@@ -178,7 +182,7 @@ add any product to checkout''',
             TextButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => OrderSplash(),
+                  builder: (context) => CheckoutScreen(total: total),
                 ));
                 //Navigator.of(context).pop();
               },

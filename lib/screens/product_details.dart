@@ -8,7 +8,7 @@ import 'homepage.dart';
 class ProductDetails extends StatefulWidget {
   final CardItem received_card;
 
-  ProductDetails({
+  const ProductDetails({
     required this.received_card,
     Key? key,
   }) : super(key: key);

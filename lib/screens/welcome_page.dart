@@ -1,3 +1,4 @@
+import 'package:ecommerce_project/screens/homepage.dart';
 import 'package:ecommerce_project/screens/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,7 +47,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       onPressed: () {
                         isVisited();
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => const SignIn()));
+                            builder: (context) => const HomeScreen()));
                       },
                       child: const Text(
                         'Skip',

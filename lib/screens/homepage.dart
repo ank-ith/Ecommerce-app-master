@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_project/screens/product_details.dart';
 import 'package:ecommerce_project/screens/provider/fav_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
 
 import 'widgets/custom_scaffold.dart';
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/shirt1-3.jpeg',
           'assets/images/shirt1-4.jpeg',
         ],
-        pricing: '10'),
+        pricing: '10', isfav: false),
     CardItem(
         title: 'shirt 2',
         images: [
@@ -33,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/shirt2-3.jpeg',
           'assets/images/shirt2-4.jpeg',
         ],
-        pricing: '50'),
+        pricing: '50', isfav: false),
     CardItem(
         title: 'shirt 3',
         images: [
@@ -42,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/3.jpeg',
           'assets/images/4.jpeg',
         ],
-        pricing: '30'),
+        pricing: '30', isfav: false),
     CardItem(
         title: 'jean 1',
         images: [
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/shirt2.jpg',
           'assets/images/shirt3.jpg'
         ],
-        pricing: '60'),
+        pricing: '60', isfav: false),
     CardItem(
         title: 'jean 2',
         images: [
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/shirt2.jpg',
           'assets/images/shirt3.jpg'
         ],
-        pricing: '30'),
+        pricing: '30', isfav: false),
     CardItem(
         title: 'jean 3',
         images: [
@@ -69,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/shirt2.jpg',
           'assets/images/shirt3.jpg'
         ],
-        pricing: '30'),
+        pricing: '30', isfav: false),
     CardItem(
         title: 'jean 4',
         images: [
@@ -78,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/shirt2.jpg',
           'assets/images/shirt3.jpg'
         ],
-        pricing: '30'),
+        pricing: '30', isfav: false),
     CardItem(
         title: 'tshirt 1',
         images: [
@@ -87,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/shirt2.jpg',
           'assets/images/shirt3.jpg'
         ],
-        pricing: '30'),
+        pricing: '30', isfav: false),
     CardItem(
         title: 'shirt 4',
         images: [
@@ -96,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/shirt2.jpg',
           'assets/images/shirt3.jpg'
         ],
-        pricing: '30'),
+        pricing: '30', isfav: false),
     CardItem(
         title: 'tshirt 2',
         images: [
@@ -105,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/shirt2.jpg',
           'assets/images/shirt3.jpg'
         ],
-        pricing: '30'),
+        pricing: '30', isfav: false),
   ];
   List<String> banner = [
     'assets/images/banner/banner1.jpg',
@@ -124,11 +125,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(onSearchTextChanged: (String text) {
-      setState(() {
-        searchKey = text;
-      });
-    },
+
+    return CustomScaffold(
+      onSearchTextChanged: (String text) {
+        setState(() {
+          searchKey = text;
+        });
+      },
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -152,7 +155,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         );
                       }).toList(),
-                      options: CarouselOptions(autoPlayCurve: Curves.linear,
+                      options: CarouselOptions(
+                        autoPlayCurve: Curves.linear,
                         viewportFraction: 1,
                         autoPlayAnimationDuration: Duration(seconds: 2),
                         autoPlay: true,
@@ -163,28 +167,26 @@ class _HomeScreenState extends State<HomeScreen> {
                             _bannerIndex = index;
                           });
                         },
-                      ))
-                  ),
+                      ))),
             ),
             GridView.count(
-              childAspectRatio: .8,
-              crossAxisCount: 2,
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              children:
-                  products
-                      .where(
-                    (element) => element.title
-                        .toLowerCase()
-                        .contains(searchKey.toLowerCase()),
-                  )
-                      .map((carditem) {
-                    return buildCard(carditem);
-                  }).toList()
-              //     products.map((cardItem) {
-              //   return buildCard(cardItem);
-              // }).toList(),
-            ),
+                childAspectRatio: .8,
+                crossAxisCount: 2,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: products
+                    .where(
+                  (element) => element.title
+                      .toLowerCase()
+                      .contains(searchKey.toLowerCase()),
+                )
+                    .map((carditem) {
+                  return buildCard(carditem);
+                }).toList()
+                //     products.map((cardItem) {
+                //   return buildCard(cardItem);
+                // }).toList(),
+                ),
           ],
         ),
       ),
@@ -194,6 +196,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildCard(CardItem cardItem) {
+    final favprovider =
+    Provider.of<FavProvider>(context, listen: false);
     return GestureDetector(
       onTap: () async {
         passsing_index = products.indexOf(cardItem);
@@ -224,7 +228,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   },
                   itemBuilder: (context, index) {
-                    return Image(image:AssetImage(cardItem.images[index]),height: 80,width: 80,
+                    return Image(
+                      image: AssetImage(cardItem.images[index]),
+                      height: 80,
+                      width: 80,
                       fit: BoxFit.scaleDown,
                     );
                   }),
@@ -245,53 +252,59 @@ class _HomeScreenState extends State<HomeScreen> {
               }),
             ),
             ListTile(
-              title: Text(
-                cardItem.title,
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontFamily: 'SFUIDisplay'),
-              ),
-              subtitle: Text('\$${cardItem.pricing}',
+                title: Text(
+                  cardItem.title,
                   style: const TextStyle(
-                      color: Colors.black, fontFamily: 'SFUIDisplay')),
-              trailing: IconButton(
-                  onPressed: () {
-                    final favprovider =
-                        Provider.of<FavProvider>(context, listen: false);
-                    if (cardItem.isfav == false) {
-                      favprovider.addToFav(FavItem(
-                          name: cardItem.title,
-                          price: cardItem.pricing,
-                          image: cardItem.images[0]));
-                    } else {
-                      favprovider.removeFav(FavItem(
-                          name: cardItem.title,
-                          price: cardItem.pricing,
-                          image: cardItem.images[0]));
-                    }
-                    setState(() {
-                      cardItem.isfav = !cardItem.isfav;
-                    });
-                  },
-                  icon: cardItem.isfav
-                      ? const Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        )
-                      : const Icon(
-                          Icons.favorite_border,
-                          color: Colors.grey,
-                        )),
-            )
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontFamily: 'SFUIDisplay'),
+                ),
+                subtitle: Text('\$${cardItem.pricing}',
+                    style: const TextStyle(
+                        color: Colors.black, fontFamily: 'SFUIDisplay')),
+                trailing:
+                // SizedBox(
+                //     height: 30,
+                //     width: 30,
+                //     child: Center(
+                //         child: LikeButton(isLiked: cardItem.isfav,
+                //       size: 25,
+                //     )))
+                IconButton(
+                    onPressed: () {
+                      if (favprovider.favorites.contains(FavItem(name: cardItem.title, price: cardItem.pricing, image: cardItem.images[0]))==false/*cardItem.isfav == false*/) {
+                        favprovider.addToFav(FavItem(
+                            name: cardItem.title,
+                            price: cardItem.pricing,
+                            image: cardItem.images[0]));
+                      } else {
+                        favprovider.removeFav(FavItem(
+                            name: cardItem.title,
+                            price: cardItem.pricing,
+                            image: cardItem.images[0]));
+                      }
+                      // setState(() {
+                      //  // products[cardItem.currentIndex].isfav=!products[cardItem.currentIndex].isfav;
+                      //  // products[products.indexOf(cardItem)].isfav=!products[products.indexOf(cardItem)].isfav;
+                      //   cardItem.isfav = !cardItem.isfav;
+                      //  });
+                    },
+                    icon:favprovider.favorites.contains(FavItem(name: cardItem.title, price: cardItem.pricing, image: cardItem.images[0]))
+                  //cardItem.isfav
+                        ? const Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          )
+                        : const Icon(
+                            Icons.favorite_border,
+                            color: Colors.grey,
+                          )),
+                )
           ],
         ),
       ),
     );
   }
-
-
-
 }
 
 class CardItem {
@@ -306,5 +319,5 @@ class CardItem {
       required this.images,
       required this.pricing,
       this.currentIndex = 0,
-      this.isfav = false});
+      required this.isfav });
 }

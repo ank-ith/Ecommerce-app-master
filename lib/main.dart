@@ -1,11 +1,7 @@
 import 'package:ecommerce_project/firebase_options.dart';
 import 'package:ecommerce_project/screens/provider/cart_provider.dart';
-import 'package:ecommerce_project/screens/homepage.dart';
 import 'package:ecommerce_project/screens/provider/fav_provider.dart';
-import 'package:ecommerce_project/screens/sign_in.dart';
-import 'package:ecommerce_project/screens/sign_up.dart';
 import 'package:ecommerce_project/screens/splash_screen.dart';
-import 'package:ecommerce_project/screens/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +15,7 @@ void main() async {
     ChangeNotifierProvider(create: (context) => CartProvider()),
     ChangeNotifierProvider(create: (context)=> FavProvider()),
       ]
-    ,child: MyApp(),
+    ,child: const MyApp(),
   ));
 }
 
@@ -28,7 +24,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp(theme: ThemeData(useMaterial3: true,),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );

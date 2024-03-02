@@ -4,6 +4,7 @@ import 'package:ecommerce_project/screens/favorites.dart';
 import 'package:ecommerce_project/screens/homepage.dart';
 import 'package:ecommerce_project/screens/orders.dart';
 import 'package:ecommerce_project/screens/sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'widgets/custom_scaffold.dart';
@@ -19,22 +20,27 @@ class _MyAccountState extends State<MyAccount> {
   @override
   void initState() {
     super.initState();
+    email =FirebaseAuth.instance.currentUser!.email!;
+    name=FirebaseAuth.instance.currentUser!.displayName!;
     getNameEmail();
   }
 
-  late String name;
+  late String name='';
   late String email='';
   late bool isLoggedIn = false;
 
   Future<void> getNameEmail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    //FirebaseAuth.instance.currentUser?.email;
     setState(() {
-      email = prefs.getString('email')!;
+      //email =FirebaseAuth.instance.currentUser!.email!;
+      //prefs.getString('email')!;
       isLoggedIn = prefs.getBool('isloggedin') ?? false;
     });
   }
 
   Future<void> logout() async {
+    FirebaseAuth.instance.signOut();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear(); // Clear all stored values
   }
@@ -67,7 +73,16 @@ class _MyAccountState extends State<MyAccount> {
                                 size: 50,
                               ),
                             ),
-                            const Divider(),
+                            Center(
+                              child: Text(
+                                name,
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  fontFamily: 'SFUIDisplay',
+                                ),
+                              ),
+                            )
+                            ,Divider(),
                             Center(
                               child: Text(
                                 email,
